@@ -157,7 +157,6 @@ elif choice == 'Build Project':
     brands = products.groupby('brand')['item_id'].count().sort_values(ascending=False)
     fig1 = brands[1:11].plot(kind='bar')
     plt.ylabel('Count')
-    plt.ylim(0, 400)
     plt.title('Products Items by brand')
     st.pyplot(fig1.figure)
     

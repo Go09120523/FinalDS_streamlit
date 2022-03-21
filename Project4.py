@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 import streamlit as st
 import pickle
 import warnings
@@ -145,14 +146,6 @@ elif choice == 'Build Project':
     products.price.plot(kind='hist', bins=20)
     st.pyplot(fig0.figure) 
     
-    st.write('##### Thương hiệu')
-    brands = products.groupby('brand')['item_id'].count().sort_values(ascending=False)
-    fig1 = brands[1:11].plot(kind='bar')
-    plt.ylabel('Count')
-    plt.ylim(0, 500)
-    plt.title('Products Items by brand')
-    st.pyplot(fig1.figure)
-    
     st.write('##### Giá bán theo thương hiệu')
     price_by_brand = products.groupby(by='brand').mean()['price'].sort_values(ascending=False)
     fig2 = price_by_brand[:10].plot(kind='bar')
@@ -160,16 +153,24 @@ elif choice == 'Build Project':
     plt.title('Average price by brand')
     st.pyplot(fig2.figure)
     
+    st.write('##### Thương hiệu')
+    brands = products.groupby('brand')['item_id'].count().sort_values(ascending=False)
+    fig1 = brands[1:11].plot(kind='bar')
+    plt.ylabel('Count')
+    plt.ylim(0, 400)
+    plt.title('Products Items by brand')
+    st.pyplot(fig1.figure)
+    
     st.write('##### Rating')
     fig3= plt.figure(figsize=(5, 5))
     products.rating.plot(kind='hist', bins=100)
     st.pyplot(fig3.figure)
     
-    # st.write('##### Reviews Distribution')
-    # fig4= plt.figure(figsize=(5, 5))
-    # products.rating.plot(kind='density')
-    # plt.xlim(0,5)
-    # st.pyplot(fig4.figure)
+    st.write('##### Reviews Distribution')
+    fig4= plt.figure(figsize=(5, 5))
+    products.rating.plot(kind='density')
+    plt.xlim(0,5)
+    st.pyplot(fig4.figure)
     
     st.write('##### Average Rating')
     avg_rating_customer = reviews.groupby(by='product_id').mean()['rating'].to_frame().reset_index()

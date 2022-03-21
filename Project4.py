@@ -149,6 +149,7 @@ elif choice == 'Build Project':
     brands = products.groupby('brand')['item_id'].count().sort_values(ascending=False)
     fig1 = brands[1:11].plot(kind='bar')
     plt.ylabel('Count')
+    plt.ylim(0, 500)
     plt.title('Products Items by brand')
     st.pyplot(fig1.figure)
     
@@ -164,11 +165,11 @@ elif choice == 'Build Project':
     products.rating.plot(kind='hist', bins=100)
     st.pyplot(fig3.figure)
     
-    st.write('##### Reviews Distribution')
-    fig4= plt.figure(figsize=(5, 5))
-    products.rating.plot(kind='density')
-    plt.xlim(0,5)
-    st.pyplot(fig4.figure)
+    # st.write('##### Reviews Distribution')
+    # fig4= plt.figure(figsize=(5, 5))
+    # products.rating.plot(kind='density')
+    # plt.xlim(0,5)
+    # st.pyplot(fig4.figure)
     
     st.write('##### Average Rating')
     avg_rating_customer = reviews.groupby(by='product_id').mean()['rating'].to_frame().reset_index()
